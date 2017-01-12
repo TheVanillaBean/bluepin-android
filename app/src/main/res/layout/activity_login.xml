@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGreyLight"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:id="@+id/main_layout">
+
+            <ImageView
+                android:id="@+id/logo_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="64dp"
+                android:layout_marginStart="64dp"/>
+
+            <LinearLayout
+                android:id="@+id/input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:layout_below="@id/logo_imageview"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:elevation="20dp">
+
+                <EditText
+                    android:id="@+id/email_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/edit_text_border"
+                    android:padding="4dp"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:layout_margin="12dp"
+                    android:textColor="@android:color/black"/>
+
+
+                <EditText
+                    android:id="@+id/password_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:background="@drawable/edit_text_border"
+                    android:padding="4dp"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:layout_margin="12dp"
+                    android:textColor="@android:color/black"/>
+
+                <com.andexert.library.RippleView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/login_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Log In"
+                        android:background="@color/colorPrimaryDark"
+                        android:textAllCaps="false"
+                        android:textSize="28sp"/>
+
+                </com.andexert.library.RippleView>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/footer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/input_layout"
+                android:layout_marginBottom="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/sign_up_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Don't have an account? Sign Up!"
+                        android:textColor="@color/sign_up_selector"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:clickable="true"/>
+
+                    <TextView
+                        android:id="@+id/forgot_password_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/sign_up_btn"
+                        android:text="Forgot Password?"
+                        android:textColor="@color/sign_up_selector"
+                        android:gravity="center"
+                        android:clickable="true"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>
+
