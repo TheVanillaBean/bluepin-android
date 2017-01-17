@@ -15,17 +15,17 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class CustomerMainActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener, FragNavController.TransactionListener, FragNavController.RootFragmentListener{
+public class CustomerMainActivity extends AppCompatActivity implements BaseFragment.OnFragmentInteractionListener, FragNavController.TransactionListener, FragNavController. RootFragmentListener{
 
     Toolbar mToolbar;
 
     private BottomBar mBottomBar;
     private FragNavController mNavController;
 
-    private final int INDEX_RECENTS = FragNavController.TAB1;
-    private final int INDEX_FAVORITES = FragNavController.TAB2;
-    private final int INDEX_NEARBY = FragNavController.TAB3;
-    private final int INDEX_FRIENDS = FragNavController.TAB4;
+    private final int INDEX_CHATS = FragNavController.TAB1;
+    private final int INDEX_BUSINESSES = FragNavController.TAB2;
+    private final int INDEX_RESERVATIONS = FragNavController.TAB3;
+    private final int INDEX_PROFILE = FragNavController.TAB4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,27 +38,27 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
         getSupportActionBar().setTitle("Bizmi");
 
         mBottomBar = (BottomBar) findViewById(R.id.bottomBar);
-        mBottomBar.selectTabAtPosition(INDEX_RECENTS);
+        mBottomBar.selectTabAtPosition(INDEX_CHATS);
 
         mNavController =
-                new FragNavController(savedInstanceState, getSupportFragmentManager(), R.id.container,this, 4, INDEX_RECENTS);
+                new FragNavController(savedInstanceState, getSupportFragmentManager(), R.id.container,this, 4, INDEX_CHATS);
         mNavController.setTransactionListener(this);
 
         mBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 switch (tabId) {
-                    case R.id.bb_menu_recents:
-                        mNavController.switchTab(INDEX_RECENTS);
+                    case R.id.bb_menu_messages:
+                        mNavController.switchTab(INDEX_CHATS);
                         break;
-                    case R.id.bb_menu_favorites:
-                        mNavController.switchTab(INDEX_FAVORITES);
+                    case R.id.bb_menu_businesses:
+                        mNavController.switchTab(INDEX_BUSINESSES);
                         break;
-                    case R.id.bb_menu_nearby:
-                        mNavController.switchTab(INDEX_NEARBY);
+                    case R.id.bb_menu_reservations:
+                        mNavController.switchTab(INDEX_RESERVATIONS);
                         break;
-                    case R.id.bb_menu_friends:
-                        mNavController.switchTab(INDEX_FRIENDS);
+                    case R.id.bb_menu_profile:
+                        mNavController.switchTab(INDEX_PROFILE);
                         break;
                 }
             }
@@ -98,31 +98,24 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
 
     @Override
     public void onTabTransaction(Fragment fragment, int index) {
-        // If we have a backstack, show the back button
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(mNavController.isRootFragment());
-        }
+
     }
 
     @Override
     public void onFragmentTransaction(Fragment fragment) {
-        //do fragmentty stuff. Maybe change title, I'm not going to tell you how to live your life
-        // If we have a backstack, show the back button
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(mNavController.isRootFragment());
-        }
+
     }
 
     @Override
     public Fragment getRootFragment(int index) {
         switch (index) {
-            case INDEX_RECENTS:
+            case INDEX_CHATS:
                 return ConversationsFragment.newInstance();
-            case INDEX_FAVORITES:
+            case INDEX_BUSINESSES:
                 return ConversationsFragment.newInstance();
-            case INDEX_NEARBY:
+            case INDEX_RESERVATIONS:
                 return ConversationsFragment.newInstance();
-            case INDEX_FRIENDS:
+            case INDEX_PROFILE:
                 return ConversationsFragment.newInstance();
 
         }

@@ -21,10 +21,17 @@
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="60dp"
+        android:background="@color/colorBottomBar"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        app:bb_tabXmlResource="@xml/bottom_bar_menu"/>
+        app:bb_tabXmlResource="@xml/customer_bottom_bar_menu"
+        app:bb_inActiveTabAlpha="1"
+        app:bb_activeTabAlpha="1"
+        app:bb_inActiveTabColor="@color/colorTab"
+        app:bb_activeTabColor="@color/colorPrimary"
+        app:bb_titleTextAppearance="@style/BottomBarTextAppearance"
+        app:bb_titleTypeFace="fonts/Roboto-Regular.ttf"/>
+
 
 </RelativeLayout>
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs xmlns:android="http://schemas.android.com/apk/res/android">
+    <tab
+        id="@+id/bb_menu_messages"
+        icon="@drawable/ic_message_100"
+        title="Messages" />
+    <tab
+        id="@+id/bb_menu_businesses"
+        icon="@drawable/ic_small_business_96"
+        title="Businesses" />
+    <tab
+        id="@+id/bb_menu_reservations"
+        icon="@drawable/ic_booking_104"
+        title="Reservations" />
+    <tab
+        id="@+id/bb_menu_profile"
+        icon="@drawable/ic_user_96"
+        title="Profile"/>
+</tabs>
