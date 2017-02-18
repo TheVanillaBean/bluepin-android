@@ -1,21 +1,23 @@
-package com.example.appdaddy.bizmi;
+package com.example.appdaddy.bizmi.Fragments;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.appdaddy.bizmi.R;
 
-public class ConversationsFragment extends BaseFragment {
 
-    private OnFragmentInteractionListener mListener;
+public class ViewReservationsFragment extends Fragment {
+    private BaseFragment.OnFragmentInteractionListener mListener;
 
-    public ConversationsFragment() {
+    public ViewReservationsFragment() {
         // Required empty public constructor
     }
 
-    public static ConversationsFragment newInstance() {
-        ConversationsFragment fragment = new ConversationsFragment();
+    public static ViewReservationsFragment newInstance() {
+        ViewReservationsFragment fragment = new ViewReservationsFragment();
         return fragment;
     }
 
@@ -31,6 +33,4 @@ public class ConversationsFragment extends BaseFragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_conversations, container, false);
     }
-
-
 }

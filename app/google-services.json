@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "679505489720",
+    "firebase_url": "https://bizmi-20775.firebaseio.com",
+    "project_id": "bizmi-20775",
+    "storage_bucket": "bizmi-20775.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679505489720:android:a706c178117bebb8",
+        "android_client_info": {
+          "package_name": "com.example.appdaddy.bizmi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679505489720-mnn3rhu0gggsnm94srdschsavr2rlmts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appdaddy.bizmi",
+            "certificate_hash": "4C97FBBEE6552BB57EF22E4C0D090E1FF2392E19"
+          }
+        },
+        {
+          "client_id": "679505489720-68p8h72m894d7jpk7imf32e9p3s8n10m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANU30G0lW29JR0T79p9x91x4P8KhUSexM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679505489720-76gv7j0poqs185vulvdiuvp9699lik78.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bizmiapp.bizmiapp"
+              }
+            },
+            {
+              "client_id": "679505489720-68p8h72m894d7jpk7imf32e9p3s8n10m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package com.example.appdaddy.bizmi;
+package com.example.appdaddy.bizmi.controller;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,6 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.example.appdaddy.bizmi.Fragments.BaseFragment;
+import com.example.appdaddy.bizmi.Fragments.ConversationsFragment;
+import com.example.appdaddy.bizmi.Fragments.CustomerProfileFragment;
+import com.example.appdaddy.bizmi.Fragments.ViewBusinessesFragment;
+import com.example.appdaddy.bizmi.Fragments.ViewReservationsFragment;
+import com.example.appdaddy.bizmi.R;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -41,7 +47,7 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
         mBottomBar.selectTabAtPosition(INDEX_CHATS);
 
         mNavController =
-                new FragNavController(savedInstanceState, getSupportFragmentManager(), R.id.container,this, 4, INDEX_CHATS);
+                new FragNavController(savedInstanceState, getSupportFragmentManager(), R.id.container, this, 4, INDEX_CHATS);
         mNavController.setTransactionListener(this);
 
         mBottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -70,17 +76,11 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
                 mNavController.clearStack();
             }
         });
-
-
     }
 
     @Override
     public void onBackPressed() {
-        if (mNavController.isRootFragment()) {
-            mNavController.pop();
-        } else {
-            super.onBackPressed();
-        }
+       super.onBackPressed();
     }
 
     @Override
@@ -112,14 +112,14 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
             case INDEX_CHATS:
                 return ConversationsFragment.newInstance();
             case INDEX_BUSINESSES:
-                return ConversationsFragment.newInstance();
+                return ViewBusinessesFragment.newInstance();
             case INDEX_RESERVATIONS:
-                return ConversationsFragment.newInstance();
+                return ViewReservationsFragment.newInstance();
             case INDEX_PROFILE:
-                return ConversationsFragment.newInstance();
+                return CustomerProfileFragment.newInstance();
 
         }
-        throw new IllegalStateException("Need to send an index that we know");
+        throw new IllegalStateException("Illegal Index");
     }
 
     @Override

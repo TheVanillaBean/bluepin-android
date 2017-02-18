@@ -1,22 +1,23 @@
-package com.example.appdaddy.bizmi;
+package com.example.appdaddy.bizmi.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ViewBusinessesFragment extends Fragment {
+import com.example.appdaddy.bizmi.R;
+
+
+public class BusinessProfileFragment extends Fragment {
     private BaseFragment.OnFragmentInteractionListener mListener;
 
-    public ViewBusinessesFragment() {
+    public BusinessProfileFragment() {
         // Required empty public constructor
     }
 
-    public static ViewBusinessesFragment newInstance() {
-        ViewBusinessesFragment fragment = new ViewBusinessesFragment();
+    public static BusinessProfileFragment newInstance() {
+        BusinessProfileFragment fragment = new BusinessProfileFragment();
         return fragment;
     }
 

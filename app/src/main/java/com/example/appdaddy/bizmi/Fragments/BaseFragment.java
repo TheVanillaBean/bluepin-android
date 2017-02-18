@@ -1,4 +1,4 @@
-package com.example.appdaddy.bizmi;
+package com.example.appdaddy.bizmi.Fragments;
 
 import android.content.Context;
 import android.net.Uri;

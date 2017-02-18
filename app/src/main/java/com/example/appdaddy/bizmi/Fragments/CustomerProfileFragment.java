@@ -1,24 +1,24 @@
-package com.example.appdaddy.bizmi;
+package com.example.appdaddy.bizmi.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.appdaddy.bizmi.R;
 
 
-public class ViewCustomersFragment extends Fragment {
+public class CustomerProfileFragment extends Fragment {
+
     private BaseFragment.OnFragmentInteractionListener mListener;
 
-    public ViewCustomersFragment() {
+    public CustomerProfileFragment() {
         // Required empty public constructor
     }
 
-    public static ViewCustomersFragment newInstance() {
-        ViewCustomersFragment fragment = new ViewCustomersFragment();
+    public static CustomerProfileFragment newInstance() {
+        CustomerProfileFragment fragment = new CustomerProfileFragment();
         return fragment;
     }
 
@@ -34,4 +34,5 @@ public class ViewCustomersFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_conversations, container, false);
     }
+
 }
