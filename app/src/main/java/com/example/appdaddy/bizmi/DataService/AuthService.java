@@ -37,6 +37,15 @@ public class AuthService {
         return mAuth;
     }
 
+    public FirebaseUser getCurrentUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            return user;
+        } else {
+            return null;
+        }
+    }
+
     public void login(String email, String password) {
 
         mAuth.signInWithEmailAndPassword(email, password)

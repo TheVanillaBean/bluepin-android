@@ -19,6 +19,7 @@ import com.example.appdaddy.bizmi.model.User;
 import com.example.appdaddy.bizmi.util.Constants;
 import com.example.appdaddy.bizmi.util.Dialog;
 import com.example.appdaddy.bizmi.util.SMSVerificationListener;
+import com.example.appdaddy.bizmi.util.Util;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.sinch.verification.PhoneNumberUtils;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         initBackgroundImage();
-        if (FBDataService.getInstance().isGooglePlayServicesAvailable(MainActivity.this)){
+        if (Util.isGooglePlayServicesAvailable(MainActivity.this)){
             validateUserToken();
         }
 
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

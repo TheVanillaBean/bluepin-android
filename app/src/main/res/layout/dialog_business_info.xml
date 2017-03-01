@@ -34,17 +34,27 @@
                     android:layout_below="@id/header_bg"
                     android:background="@drawable/shadow" />
 
-                <ImageView
-                    android:id="@+id/business_image"
+                <FrameLayout
+                    android:id="@+id/profile_image_bg"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@mipmap/ic_launcher"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/business_logo_border"
-                    android:layout_centerHorizontal="true"/>
+                    android:layout_centerHorizontal="true">
+
+                    <ImageView
+                        android:id="@+id/business_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:padding="4dp"/>
+
+                </FrameLayout>
+
 
                 <ImageButton
+                    android:id="@+id/cancel_btn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/btn_cancel_selector"
@@ -52,7 +62,7 @@
                     android:scaleType="fitCenter"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
+                    android:layout_marginStart="16dp" />
 
             </RelativeLayout>
 
@@ -71,6 +81,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/business_name_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Terri's Salon"
@@ -78,23 +89,25 @@
                         android:textColor="@color/colorGreyDark"/>
 
                     <TextView
+                        android:id="@+id/business_type_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Spa"
                         android:textSize="25sp"
-                        android:textColor="@color/colorGreyDark"/>
+                        android:textColor="@color/colorGreyDark" />
 
                 </LinearLayout>
 
-                <View
+                <fragment
                     android:id="@+id/map_view"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="85dp"
                     android:layout_margin="8dp"
-                    android:layout_below="@id/business_basic_info"
-                    android:background="@color/colorAccent" />
+                    android:layout_below="@id/business_basic_info"/>
 
                 <LinearLayout
+                    android:id="@+id/business_location_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/map_view"
@@ -113,11 +126,12 @@
                         android:layout_marginEnd="4dp"/>
 
                     <TextView
+                        android:id="@+id/business_location_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/plain_text_selector"
+                        android:textColor="@color/default_btn_selector"
                         android:text="7835 E Evans Rd, Scottsdale, AZ 85260"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -193,6 +207,7 @@
                             android:layout_marginStart="4dp"/>
 
                         <TextView
+                            android:id="@+id/phone_label"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -234,7 +249,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/hoursbtn"
+                        android:id="@+id/hours_btn"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/btn_border_grey"
@@ -280,7 +295,7 @@
                     fontPath="fonts/Roboto-Thin.ttf"/>
 
                 <TextView
-                    android:id="@+id/about_desc_textview"
+                    android:id="@+id/business_desc_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -304,7 +319,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="Subscribe To Business"
         android:textAllCaps="false"

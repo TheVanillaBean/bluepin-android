@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_view_business_directions"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.appdaddy.bizmi.ViewBusinessDirectionsFragment">
+
+    <fragment
+        android:id="@+id/map_view"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:id="@+id/cancel_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/btn_cancel_selector_blue"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp" />
+
+    <LinearLayout
+        android:id="@+id/directions_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:layout_margin="16dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="12dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/marker_small" />
+
+        <TextView
+            android:id="@+id/directions_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Directions"
+            android:textColor="@color/plain_text_selector"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

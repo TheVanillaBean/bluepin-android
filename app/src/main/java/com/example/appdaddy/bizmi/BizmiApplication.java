@@ -1,6 +1,8 @@
 package com.example.appdaddy.bizmi;
 
 import  android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.example.appdaddy.bizmi.util.Constants;
 import com.sinch.verification.Config;
@@ -32,6 +34,12 @@ public class BizmiApplication extends Application {
 
     public static Config getSinchConfig(){
         return mConfig;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
 }

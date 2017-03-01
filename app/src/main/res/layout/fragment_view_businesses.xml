@@ -4,10 +4,18 @@
     android:layout_height="match_parent"
     tools:context="com.example.appdaddy.bizmi.Fragments.ViewBusinessesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.example.appdaddy.bizmi.widgets.CustomRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
     <TextView
+        android:id="@+id/empty_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="32dp"
+        android:textColor="@color/colorGreyDark"
+        android:gravity="center"/>
 
 </FrameLayout>

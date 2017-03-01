@@ -7,6 +7,7 @@ package com.example.appdaddy.bizmi.model;
 import com.example.appdaddy.bizmi.DataService.FBDataService;
 import com.example.appdaddy.bizmi.POJO.UserCastEvent;
 import com.example.appdaddy.bizmi.util.Constants;
+import com.firebase.geofire.GeoLocation;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Exclude;
@@ -14,33 +15,34 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
+import org.parceler.Parcel;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Parcel /* Variables are not private because of the Parcel Dependency - Reflection */
 @IgnoreExtraProperties
 public class User {
 
-    private String uuid;
-    private String email;
-    private String userType;
-    private String fullName;
-    private String phoneNumber;
-    private String phoneNumberVerified;
-    private String password;
+    String uuid;
+    String email;
+    String userType;
+    String fullName;
+    String phoneNumber;
+    String phoneNumberVerified;
+    String password;
 
-    private String businessName;
-    private String businessType;
-    private String businessDesc;
-    private String businessWebsite;
-    private String businessHours;
-    private String userProfilePicLocation;
-    private String businessLocation;
+    String businessName;
+    String businessType;
+    String businessDesc;
+    String businessWebsite;
+    String businessHours;
+    String userProfilePicLocation;
 
-    private String deviceToken;
+    String deviceToken;
 
     public String getDeviceToken() {
-        return deviceToken;
+        return (deviceToken == null) ? "" : deviceToken;
     }
 
     public void setDeviceToken(String deviceToken) {
@@ -151,14 +153,6 @@ public class User {
         this.userProfilePicLocation = userProfilePicLocation;
     }
 
-    public String getBusinessLocation() {
-        return (businessLocation == null) ? "" : userProfilePicLocation;
-    }
-
-    public void setBusinessLocation(String businessLocation) {
-        this.businessLocation = businessLocation;
-    }
-
     public User() {
     }
 
@@ -185,8 +179,7 @@ public class User {
         result.put(Constants.BUSINESS_WEBSITE, businessWebsite);
         result.put(Constants.BUSINESS_HOURS, businessHours);
         result.put(Constants.USER_PROFILE_PIC_LOC, userProfilePicLocation);
-        result.put(Constants.BUSINESS_LOC, businessLocation);
-
+        result.put(Constants.DEVICE_TOKEN, deviceToken);
         return result;
     }
 
@@ -210,6 +203,5 @@ public class User {
         });
 
     }
-
 
 }

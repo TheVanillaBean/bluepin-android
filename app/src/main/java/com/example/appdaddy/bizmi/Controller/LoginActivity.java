@@ -23,6 +23,7 @@ import com.example.appdaddy.bizmi.R;
 import com.example.appdaddy.bizmi.model.User;
 import com.example.appdaddy.bizmi.util.Constants;
 import com.example.appdaddy.bizmi.util.Dialog;
+import com.example.appdaddy.bizmi.util.Util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -166,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
             String email = emailField.getText().toString();
             String password = passwordField.getText().toString();
 
-            if (FBDataService.getInstance().isGooglePlayServicesAvailable(LoginActivity.this)){
+            if (Util.isGooglePlayServicesAvailable(LoginActivity.this)){
                 progressDialog.show();
                 AuthService.getInstance().login(email, password);
             }

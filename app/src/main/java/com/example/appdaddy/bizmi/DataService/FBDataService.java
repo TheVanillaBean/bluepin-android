@@ -1,17 +1,16 @@
 package com.example.appdaddy.bizmi.DataService;
 
-import android.app.Activity;
-
 import com.example.appdaddy.bizmi.POJO.RetrieveAllBusinessIDSEvent;
+import com.example.appdaddy.bizmi.POJO.RetrieveSubscriptionStatusEvent;
 import com.example.appdaddy.bizmi.POJO.UserUpdateEvent;
 import com.example.appdaddy.bizmi.model.User;
 import com.example.appdaddy.bizmi.util.Constants;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+import com.example.appdaddy.bizmi.util.L;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -20,8 +19,6 @@ import com.google.firebase.storage.StorageReference;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -117,6 +114,12 @@ public class FBDataService {
         return allBusinessIDS;
     }
 
+    private ArrayList<String> customerFollowingList = new ArrayList<>();
+
+    public ArrayList<String> getCustomerFollowingList(){
+        return customerFollowingList;
+    }
+
     public void saveUser(final User user){
         Map<String, Object> properties = user.toMap();
         usersRef().child(user.getUUID()).setValue(properties, new DatabaseReference.CompletionListener() {
@@ -165,6 +168,8 @@ public class FBDataService {
                         businessKey = postSnapshot.getKey();
                         allBusinessIDS.add(businessKey);
                     }
+
+                    EventBus.getDefault().post(new RetrieveAllBusinessIDSEvent(null));
                 }
             }
 
@@ -175,20 +180,91 @@ public class FBDataService {
         });
     }
 
+    //Begin Subscription Status
 
-    public FBDataService(){
+    public void subscribeToBusiness(String customerID, String businessID){
+
+        if(customerFollowingList.size() > 0){
+            if(isSubscribed(businessID)){
+                businessFollowersRef().child(businessID).child(customerID).removeValue();
+                customerFollowersRef().child(customerID).child(businessID).removeValue();
+                customerFollowingList.remove(businessID);
+                EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(false, null));
+            }else{
+                businessFollowersRef().child(businessID).child(customerID).setValue(ServerValue.TIMESTAMP);
+                customerFollowersRef().child(customerID).child(businessID).setValue(ServerValue.TIMESTAMP);
+                customerFollowingList.add(businessID);
+                EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(true, null));
+            }
+        }else{
+            businessFollowersRef().child(businessID).child(customerID).setValue(ServerValue.TIMESTAMP);
+            customerFollowersRef().child(customerID).child(businessID).setValue(ServerValue.TIMESTAMP);
+            customerFollowingList.add(businessID);
+            EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(true, null));
+        }
+
     }
 
-    public boolean isGooglePlayServicesAvailable(Activity activity) {
-        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
-        if(status != ConnectionResult.SUCCESS) {
-            if(googleApiAvailability.isUserResolvableError(status)) {
-                googleApiAvailability.getErrorDialog(activity, status, 2404).show();
+    public void retrieveSubscriptionStatus(String customerID, String businessID){
+
+       if(customerFollowingList.size() > 0){
+            if(isSubscribed(businessID)){
+                EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(true, null));
+            }else{
+                EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(false, null));
             }
-            return false;
+       }else{
+           retrieveAllBusinessesFollowedByUser(customerID, businessID);
+       }
+
+    }
+
+    private void retrieveAllBusinessesFollowedByUser(final String customerID, final String businessID){
+
+        customerFollowersRef().child(customerID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                customerFollowingList.clear();
+                String businessKey;
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    businessKey = postSnapshot.getKey();
+                    customerFollowingList.add(businessKey);
+                }
+
+                if(customerFollowingList.size() == 0){
+                    EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(false, null));
+                }else {
+                    retrieveSubscriptionStatus(customerID, businessID);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                L.m("cancell followed user");
+                EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(false, "Error retrieving businesses... " + databaseError.getMessage()));
+            }
+        });
+
+    }
+
+    private boolean isSubscribed(String businessID){
+
+        for (String businessKey : getCustomerFollowingList()) {
+            if(businessKey.equals(businessID)){
+                return true;
+            }
         }
-        return true;
+
+        return false;
+
+    }
+
+    //End Subscription Status
+
+
+    public FBDataService(){
     }
 
 }

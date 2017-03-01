@@ -9,6 +9,9 @@ public class Constants {
     public static final String SINCH_API_KEY = "fb9c06d5-53e7-4d60-83d0-cb853587884a";
     public static final String SINCH_API_SECRET = "8QqCD+re2UKeC2MscmZujw==";
 
+    //Maps Error Code
+    public static final int ERROR_DIALOG_REQUEST = 9001;
+
     //User Types
     public static final String USER_BUSINESS_TYPE = "Business";
     public static final String USER_CUSTOMER_TYPE = "Customer";
@@ -16,6 +19,10 @@ public class Constants {
     //putExtra
     public static final String EXTRA_PHONE_NUMBER = "phoneNumberExtra";
     public static final String EXTRA_USER_ID = "userIDExtra";
+    public static final String EXTRA_USER_PARCEL = "userParcel";
+    public static final String EXTRA_LOCATION_LAT = "locationLatExtra";
+    public static final String EXTRA_LOCATION_LONG = "locationLongExtra";
+    public static final String EXTRA_WEBSITE = "websiteExtra";
 
 
     //Model - User
@@ -33,6 +40,7 @@ public class Constants {
     public static final String BUSINESS_HOURS = "businessHours";
     public static final String USER_PROFILE_PIC_LOC = "userProfilePicLocation";
     public static final String BUSINESS_LOC = "businessLocation";
+    public static final String DEVICE_TOKEN = "deviceToken";
 
     //Firebase Messages
 
