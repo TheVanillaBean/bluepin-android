@@ -14,6 +14,7 @@ import com.example.appdaddy.bizmi.Fragments.ConversationsFragment;
 import com.example.appdaddy.bizmi.Fragments.ViewCustomersFragment;
 import com.example.appdaddy.bizmi.Fragments.ViewReservationsFragment;
 import com.example.appdaddy.bizmi.R;
+import com.example.appdaddy.bizmi.util.L;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -57,7 +58,7 @@ public class BusinessMainActivity extends AppCompatActivity implements BaseFragm
                     case R.id.bb_menu_messages:
                         mNavController.switchTab(INDEX_CHATS);
                         break;
-                    case R.id.bb_menu_businesses:
+                    case R.id.bb_menu_customers:
                         mNavController.switchTab(INDEX_CUSTOMERS);
                         break;
                     case R.id.bb_menu_reservations:

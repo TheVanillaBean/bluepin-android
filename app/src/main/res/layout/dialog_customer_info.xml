@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@android:color/white">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/header_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_alignParentTop="true"/>
+
+                <View
+                    android:id="@+id/toolbar_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:layout_below="@id/header_bg"
+                    android:background="@drawable/shadow" />
+
+                <FrameLayout
+                    android:id="@+id/profile_image_bg"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/business_logo_border"
+                    android:layout_centerHorizontal="true">
+
+                    <ImageView
+                        android:id="@+id/customer_image"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:padding="4dp"/>
+
+                </FrameLayout>
+
+
+                <ImageButton
+                    android:id="@+id/cancel_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/btn_cancel_selector"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/main_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header_layout"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:id="@+id/business_basic_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/customer_name_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jane Doe"
+                        android:textSize="30sp"
+                        android:textColor="@color/colorGreyDark"/>
+
+                    <TextView
+                        android:id="@+id/customer_duration_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer since: Nov 06 2016"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorGreyDark" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/stats_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/business_basic_info"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:baselineAligned="false">
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="16dp">
+
+                        <View
+                            android:id="@+id/circle_message_layout"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@drawable/bg_circle"
+                            android:layout_centerHorizontal="true"/>
+
+                        <TextView
+                            android:id="@+id/messages_sent_labeel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/circle_message_layout"
+                            android:layout_alignEnd="@id/circle_message_layout"
+                            android:layout_alignStart="@id/circle_message_layout"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:text="8"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="30sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/circle_message_layout"
+                            android:layout_marginTop="8dp"
+                            android:text="Messages Sent"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:layout_centerHorizontal="true"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="16dp">
+
+                        <View
+                            android:id="@+id/circle_reservation_layout"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@drawable/bg_circle"
+                            android:layout_centerHorizontal="true"/>
+
+                        <TextView
+                            android:id="@+id/reservations_made_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/circle_reservation_layout"
+                            android:layout_alignEnd="@id/circle_reservation_layout"
+                            android:layout_alignStart="@id/circle_reservation_layout"
+                            android:layout_marginBottom="20dp"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="30sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/circle_reservation_layout"
+                            android:layout_marginTop="8dp"
+                            android:text="Appointments Made"
+                            android:textColor="@android:color/black"
+                            android:textSize="15sp"
+                            android:layout_centerHorizontal="true"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/message_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/btn_border_blue"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:layout_below="@id/stats_layout">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="12dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/message_blue" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Message Business"
+                        android:textColor="@color/default_btn_selector"
+                        android:textSize="16sp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.appdaddy.bizmi.DataService;
 
 import com.example.appdaddy.bizmi.POJO.RetrieveAllBusinessIDSEvent;
+import com.example.appdaddy.bizmi.POJO.RetrieveAllFollowersEvent;
 import com.example.appdaddy.bizmi.POJO.RetrieveSubscriptionStatusEvent;
 import com.example.appdaddy.bizmi.POJO.UserUpdateEvent;
 import com.example.appdaddy.bizmi.model.User;
@@ -19,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -120,6 +122,19 @@ public class FBDataService {
         return customerFollowingList;
     }
 
+    private HashMap<String, Long> allFollowersTime = new HashMap<String, Long> ();
+
+    public HashMap<String, Long>  getAllFollowersTime(){
+        return allFollowersTime;
+    }
+
+    private ArrayList<String> allFollowers = new ArrayList<>();
+
+    public ArrayList<String> getAllFollowers(){
+        return allFollowers;
+    }
+
+
     public void saveUser(final User user){
         Map<String, Object> properties = user.toMap();
         usersRef().child(user.getUUID()).setValue(properties, new DatabaseReference.CompletionListener() {
@@ -176,6 +191,39 @@ public class FBDataService {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 EventBus.getDefault().post(new RetrieveAllBusinessIDSEvent("Error retrieving businesses " + databaseError.getMessage()));
+            }
+        });
+    }
+
+    public void retrieveAllFollowers(String businessID){
+        businessFollowersRef().child(businessID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.getValue() == null){
+                    EventBus.getDefault().post(new RetrieveAllFollowersEvent("No businesses were retrieved..."));
+                }else{
+                    allFollowersTime.clear();
+                    allFollowers.clear();
+                    String customerKey;
+                    Long timeKey;
+
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        customerKey = postSnapshot.getKey();
+                        timeKey = (Long) postSnapshot.getValue();
+                        allFollowers.add(customerKey);
+                        allFollowersTime.put(customerKey, timeKey);
+                        L.m(customerKey + " " + timeKey);
+
+                    }
+
+                    EventBus.getDefault().post(new RetrieveAllFollowersEvent(null));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                EventBus.getDefault().post(new RetrieveAllFollowersEvent("Error retrieving businesses " + databaseError.getMessage()));
             }
         });
     }

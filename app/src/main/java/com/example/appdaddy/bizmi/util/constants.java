@@ -23,6 +23,7 @@ public class Constants {
     public static final String EXTRA_LOCATION_LAT = "locationLatExtra";
     public static final String EXTRA_LOCATION_LONG = "locationLongExtra";
     public static final String EXTRA_WEBSITE = "websiteExtra";
+    public static final String EXTRA_DURATION = "durationExtra";
 
 
     //Model - User

@@ -5,7 +5,7 @@
         icon="@drawable/ic_message_100"
         title="Messages"/>
     <tab
-        id="@+id/bb_menu_customer"
+        id="@+id/bb_menu_customers"
         icon="@drawable/ic_conference_call_filled_100"
         title="Customers"/>
     <tab

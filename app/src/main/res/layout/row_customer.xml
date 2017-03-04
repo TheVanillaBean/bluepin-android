@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_row">
+
+    <FrameLayout
+        android:id="@+id/profile_image_bg"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:background="@drawable/business_logo_border"
+        android:layout_margin="2dp" >
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:padding="4dp"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        android:layout_weight="4">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/customer_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:layout_marginBottom="2dp"
+            android:text="Jane Doe"
+            android:textColor="@color/colorAccent"
+            autofit:minTextSize="20sp"
+            android:singleLine="true"/>
+
+        <TextView
+            android:id="@+id/following_duration_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="Customer Since: Nov 06 2016"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:layout_margin="32dp"
         android:textColor="@color/colorGreyDark"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="No Businesses"/>
 
 </FrameLayout>

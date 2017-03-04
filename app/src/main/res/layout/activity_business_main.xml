@@ -6,6 +6,7 @@
     android:id="@+id/activity_business_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.example.appdaddy.bizmi.controller.BusinessMainActivity">
 
     <include
@@ -16,6 +17,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:layout_above="@+id/bottomBar" />
 
     <com.roughike.bottombar.BottomBar
