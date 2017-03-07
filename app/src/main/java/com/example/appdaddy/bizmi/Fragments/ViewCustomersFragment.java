@@ -140,7 +140,7 @@ public class ViewCustomersFragment extends Fragment {
         Parcelable wrapped = Parcels.wrap(user);
         bundle.putParcelable(Constants.EXTRA_USER_PARCEL, wrapped);
         bundle.putLong(Constants.EXTRA_DURATION, duration);
-        
+
         FragmentManager fragmentManager = getFragmentManager();
         CustomerInfoDialog customerInfoDialog = CustomerInfoDialog.newInstance(bundle);
         FragmentTransaction transaction = fragmentManager.beginTransaction();

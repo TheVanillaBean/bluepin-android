@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_location"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.appdaddy.bizmi.controller.EditLocationActivity">
+
+    <fragment
+        android:id="@+id/map_view"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorGreyOverlay"
+        android:layout_below="@id/toolbar">
+
+        <EditText
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="1 Infinite Loop, Cupertino, CA 95014"
+            android:textSize="16sp"
+            android:background="@android:color/white"
+            android:textColorHint="@android:color/black"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:imeOptions="actionDone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Move the map until the pin is directly over your business."
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginTop="4dp"
+            android:padding="4dp"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/marker_shadow"
+        android:scaleType="fitCenter"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

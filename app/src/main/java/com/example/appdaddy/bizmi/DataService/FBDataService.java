@@ -1,12 +1,19 @@
 package com.example.appdaddy.bizmi.DataService;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
+
 import com.example.appdaddy.bizmi.POJO.RetrieveAllBusinessIDSEvent;
 import com.example.appdaddy.bizmi.POJO.RetrieveAllFollowersEvent;
 import com.example.appdaddy.bizmi.POJO.RetrieveSubscriptionStatusEvent;
+import com.example.appdaddy.bizmi.POJO.UploadFileEvent;
+import com.example.appdaddy.bizmi.POJO.UploadProgressEvent;
 import com.example.appdaddy.bizmi.POJO.UserUpdateEvent;
 import com.example.appdaddy.bizmi.model.User;
 import com.example.appdaddy.bizmi.util.Constants;
 import com.example.appdaddy.bizmi.util.L;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,11 +21,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,7 +149,6 @@ public class FBDataService {
         return allFollowers;
     }
 
-
     public void saveUser(final User user){
         Map<String, Object> properties = user.toMap();
         usersRef().child(user.getUUID()).setValue(properties, new DatabaseReference.CompletionListener() {
@@ -166,6 +180,37 @@ public class FBDataService {
                 }
             }
         });
+    }
+
+    public void uploadFile(StorageReference filePath, final File file, StorageMetadata metadata){
+
+        Uri fileURI = Uri.fromFile(file);
+
+        UploadTask uploadTask = filePath.putFile(fileURI, metadata);
+
+        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                EventBus.getDefault().post(new UploadProgressEvent(progress));
+            }
+        }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                EventBus.getDefault().post(new UploadFileEvent("Image Upload Paused. Please Check Network State" , null, null));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                EventBus.getDefault().post(new UploadFileEvent("Failed to Upload Image" + exception.getMessage(), null, null));
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                EventBus.getDefault().post(new UploadFileEvent(null, taskSnapshot, file));
+            }
+        });
+
     }
 
     public void retrieveAllBusinesses(){

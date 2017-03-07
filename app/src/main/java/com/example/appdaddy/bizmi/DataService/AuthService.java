@@ -105,7 +105,7 @@ public class AuthService {
                             if (task.isSuccessful()) {
                                 EventBus.getDefault().post(new EmailUpdateEvent(null));
                             }else{
-                                EventBus.getDefault().post(new PasswordResetEvent(task.getException().getMessage()));
+                                EventBus.getDefault().post(new EmailUpdateEvent(task.getException().getMessage()));
                             }
                         }
                     });

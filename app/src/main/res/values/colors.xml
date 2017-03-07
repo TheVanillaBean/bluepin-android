@@ -9,4 +9,5 @@
     <color name="colorGreyDark">#484848</color>
     <color name="colorTab">#919191</color>
     <color name="colorBottomBar">#f5f5f5</color>
+    <color name="colorGreyOverlay">#64787878</color>
 </resources>

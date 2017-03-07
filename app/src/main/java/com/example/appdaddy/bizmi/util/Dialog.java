@@ -1,8 +1,11 @@
 package com.example.appdaddy.bizmi.util;
 
 import android.content.Context;
+import android.icu.text.NumberFormat;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.Locale;
 
 /**
  * Created by Alex on 1/25/2017.
@@ -26,7 +29,17 @@ public class Dialog {
                 .title(title)
                 .content(content)
                 .progress(true, 0)
+                .autoDismiss(false)
                 .progressIndeterminateStyle(horizontal);
+
+        return builder.build();
+    }
+
+    public static MaterialDialog showProgressDeterminateDialog(Context context, String title, String content, boolean horizontal, boolean showMinMax, int max){
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
+                .title(title)
+                .content(content)
+                .progress(false, max, showMinMax);
 
         return builder.build();
     }

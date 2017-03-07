@@ -25,6 +25,9 @@ public class Constants {
     public static final String EXTRA_WEBSITE = "websiteExtra";
     public static final String EXTRA_DURATION = "durationExtra";
 
+    //String Signiture Keys
+    public static final String SIG_NOT_UPDATED = "No";
+    public static final String SIG_YES_UPDATED = "Yes";
 
     //Model - User
     public static final String UUID = "uuid";
