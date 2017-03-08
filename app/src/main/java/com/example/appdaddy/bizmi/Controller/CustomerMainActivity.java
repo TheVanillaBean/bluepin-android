@@ -13,11 +13,18 @@ import com.example.appdaddy.bizmi.Fragments.ConversationsFragment;
 import com.example.appdaddy.bizmi.Fragments.CustomerProfileFragment;
 import com.example.appdaddy.bizmi.Fragments.ViewBusinessesFragment;
 import com.example.appdaddy.bizmi.Fragments.ViewReservationsFragment;
+import com.example.appdaddy.bizmi.POJO.UploadFileEvent;
+import com.example.appdaddy.bizmi.POJO.UploadProgressEvent;
+import com.example.appdaddy.bizmi.POJO.UserUpdateEvent;
 import com.example.appdaddy.bizmi.R;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -32,6 +39,8 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
     private final int INDEX_BUSINESSES = FragNavController.TAB2;
     private final int INDEX_RESERVATIONS = FragNavController.TAB3;
     private final int INDEX_PROFILE = FragNavController.TAB4;
+
+    private OnListenerCallBacks mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,5 +134,42 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUploadProgressCallBack(UploadProgressEvent event) {
+        mListener.OnUploadProgressCallBack(event);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUploadFileCallBack(UploadFileEvent event) {
+        mListener.OnUploadFileCallBack(event);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserUpdateCallBack(UserUpdateEvent event) {
+        mListener.OnUserUpdateCallBack(event);
+    }
+
+    public void setListener(OnListenerCallBacks listener){
+        this.mListener = listener;
+    }
+
+    public interface OnListenerCallBacks {
+        void OnUploadProgressCallBack(UploadProgressEvent event);
+        void OnUploadFileCallBack(UploadFileEvent event);
+        void OnUserUpdateCallBack(UserUpdateEvent event);
     }
 }

@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.appdaddy.bizmi.POJO.AuthEvent;
 import com.example.appdaddy.bizmi.POJO.EmailUpdateEvent;
 import com.example.appdaddy.bizmi.POJO.PasswordResetEvent;
+import com.example.appdaddy.bizmi.util.L;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -92,7 +93,7 @@ public class AuthService {
                });
     }
 
-    public void resetEmail(String email) {
+    public void resetEmail(final String email) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -103,9 +104,9 @@ public class AuthService {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                EventBus.getDefault().post(new EmailUpdateEvent(null));
+                                EventBus.getDefault().post(new EmailUpdateEvent(null, email));
                             }else{
-                                EventBus.getDefault().post(new EmailUpdateEvent(task.getException().getMessage()));
+                                EventBus.getDefault().post(new EmailUpdateEvent(task.getException().getMessage(), null));
                             }
                         }
                     });

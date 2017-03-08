@@ -223,6 +223,11 @@ public class BusinessProfileFragment extends Fragment implements BusinessMainAct
                             case Constants.BUSINESS_WEBSITE:
                                 mCurrentUser.setBusinessWebsite(input.toString());
                                 break;
+                            case Constants.EMAIL:
+                                progressDialog.show();
+                                AuthService.getInstance().resetEmail(input.toString());
+                                break;
+
                         }
 
                         FBDataService.getInstance().updateUser(mCurrentUser);
@@ -269,10 +274,11 @@ public class BusinessProfileFragment extends Fragment implements BusinessMainAct
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEmailPasswordCallBack(EmailUpdateEvent event) {
+    public void onEmailCallBack(EmailUpdateEvent event) {
         progressDialog.dismiss();
         if (event.getError() == null){
-            Dialog.showDialog(getActivity(), "Email Sent", "An email has been sent to " + mCurrentUser.getEmail() + " with an email reset link.", "Okay");
+            mCurrentUser.setEmail(event.getEmail());
+            FBDataService.getInstance().updateUser(mCurrentUser);
         }else{
             Dialog.showDialog(getActivity(), "Email Reset Error", event.getError(), "Okay");
         }
@@ -373,27 +379,9 @@ public class BusinessProfileFragment extends Fragment implements BusinessMainAct
 
     @OnClick(R.id.email_btn)
     public void onEmailBtnPressed() {
-        new MaterialDialog.Builder(getActivity())
-                .title("Reset Email")
-                .content("Do you want to reset your email?")
-                .positiveText("Yes")
-                .negativeText("No")
-                .autoDismiss(true)
-                .typeface("Roboto-Regular.ttf", "Roboto-Light.ttf")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        progressDialog.show();
-                        AuthService.getInstance().resetEmail(mCurrentUser.getEmail());
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
+        if (mCurrentUser != null) {
+            showDialog(getActivity(), "Edit User", "Update your Email", "Enter Email", mCurrentUser.getEmail(), Constants.EMAIL);
+        }
     }
 
     @OnClick(R.id.location_btn)

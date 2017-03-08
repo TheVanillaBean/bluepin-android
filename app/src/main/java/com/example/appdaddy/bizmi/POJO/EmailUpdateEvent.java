@@ -1,5 +1,6 @@
 package com.example.appdaddy.bizmi.POJO;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 /**
@@ -9,13 +10,18 @@ import android.support.annotation.Nullable;
 public class EmailUpdateEvent {
 
     private final String error;
+    private final String email;
 
-    public EmailUpdateEvent(@Nullable String error){
+    public EmailUpdateEvent(@Nullable String error, @NonNull String email){
         this.error = error;
+        this.email = email;
     }
 
     public String getError() {
         return error;
+    }
+    public String getEmail() {
+        return email;
     }
 
 }
