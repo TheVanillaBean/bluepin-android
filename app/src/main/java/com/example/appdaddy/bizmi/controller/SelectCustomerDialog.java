@@ -1,12 +1,10 @@
-package com.example.appdaddy.bizmi.Fragments;
+package com.example.appdaddy.bizmi.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +16,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.appdaddy.bizmi.DataService.AuthService;
 import com.example.appdaddy.bizmi.DataService.FBDataService;
+import com.example.appdaddy.bizmi.Fragments.ViewCustomersFragment;
 import com.example.appdaddy.bizmi.POJO.RetrieveAllFollowersEvent;
 import com.example.appdaddy.bizmi.R;
-import com.example.appdaddy.bizmi.controller.CustomerInfoDialog;
 import com.example.appdaddy.bizmi.model.User;
 import com.example.appdaddy.bizmi.util.Constants;
 import com.example.appdaddy.bizmi.util.Util;
@@ -42,31 +40,34 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+/**
+ * Created by Alex on 3/3/2017.
+ */
 
-public class ViewCustomersFragment extends Fragment {
-    private BaseFragment.OnFragmentInteractionListener mListener;
+public class SelectCustomerDialog extends DialogFragment {
 
     @BindView(R.id.recycler_view) CustomRecyclerView mRecyclerView;
     @BindView(R.id.empty_list) TextView mEmptyList;
 
     private FirebaseUser mCurrentUser;
-
     private FirebaseRecyclerAdapter mAdapter;
 
-    public ViewCustomersFragment() {
+    private OnCustomerSelected mListener;
+
+    public SelectCustomerDialog() {
     }
 
-    public static ViewCustomersFragment newInstance() {
-        return new ViewCustomersFragment();
+    public static SelectCustomerDialog newInstance() {
+        return new SelectCustomerDialog();
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_view_customers, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_select_customer, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -74,11 +75,16 @@ public class ViewCustomersFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        EventBus.getDefault().register(this);
 
         mCurrentUser = AuthService.getInstance().getCurrentUser();
 
         if(mCurrentUser != null){
-            FBDataService.getInstance().retrieveAllFollowers(mCurrentUser.getUid());
+            if(FBDataService.getInstance().getAllFollowers().size() < 1){
+                FBDataService.getInstance().retrieveAllFollowers(mCurrentUser.getUid());
+            }else{
+                setupRecyclerView();
+            }
         }else{
             Toast.makeText(getActivity(), "Error retrieving current user...", Toast.LENGTH_LONG).show();
         }
@@ -97,10 +103,10 @@ public class ViewCustomersFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new FirebaseIndexRecyclerAdapter<User, ViewCustomersFragment.CustomerHolder>(User.class, R.layout.row_customer, ViewCustomersFragment.CustomerHolder.class,
-                FBDataService.getInstance().businessFollowersRef().child(mCurrentUser.getUid()).orderByValue(), FBDataService.getInstance().usersRef()) {
+        mAdapter = new FirebaseIndexRecyclerAdapter<User, SelectCustomerDialog.CustomerHolder>(User.class, R.layout.row_customer, SelectCustomerDialog.CustomerHolder.class,
+                FBDataService.getInstance().businessFollowersRef().child(mCurrentUser.getUid()), FBDataService.getInstance().usersRef()) {
             @Override
-            public void populateViewHolder(final ViewCustomersFragment.CustomerHolder customerViewHolder, final User user, int position) {
+            public void populateViewHolder(final SelectCustomerDialog.CustomerHolder customerViewHolder, final User user, int position) {
                 customerViewHolder.setName(user.getFullName());
                 customerViewHolder.setDuration(FBDataService.getInstance().getAllFollowersTime().get(user.getUUID()));
                 customerViewHolder.updateProfilePicture(getActivity(), Util.getImagePathPNG(user.getUUID()));
@@ -108,7 +114,8 @@ public class ViewCustomersFragment extends Fragment {
                 customerViewHolder.getView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showDialogInfo(user, FBDataService.getInstance().getAllFollowersTime().get(user.getUUID()));
+                        mListener.OnCustomerSelected(user);
+                        dismiss();
                     }
                 });
             }
@@ -123,33 +130,15 @@ public class ViewCustomersFragment extends Fragment {
         mAdapter.cleanup();
     }
 
-    public void showDialogInfo(User user, Long duration) {
-
-        Bundle bundle = new Bundle();
-        Parcelable wrapped = Parcels.wrap(user);
-        bundle.putParcelable(Constants.EXTRA_USER_PARCEL, wrapped);
-        bundle.putLong(Constants.EXTRA_DURATION, duration);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        CustomerInfoDialog customerInfoDialog = CustomerInfoDialog.newInstance(bundle);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.add(android.R.id.content, customerInfoDialog)
-                .addToBackStack(null).commit();
-
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
     @Override
     public void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+    }
+
+    @OnClick(R.id.cancel_btn)
+    public void onCancelBtnPressed() {
+        dismiss();
     }
 
     public static class CustomerHolder extends CustomRecyclerView.ViewHolder {
@@ -191,5 +180,19 @@ public class ViewCustomersFragment extends Fragment {
             String dateFormatted = formatter.format(date);
             mDurationField.setText("Customer since: " + dateFormatted);
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        NewReservationActivity a;
+        if (context instanceof Activity){
+            a = (NewReservationActivity) context;
+            mListener = (OnCustomerSelected) a;
+        }
+    }
+
+    public interface OnCustomerSelected {
+        void OnCustomerSelected(User customer);
     }
 }

@@ -29,7 +29,7 @@
         android:layout_weight="4">
 
         <me.grantland.widget.AutofitTextView
-            android:id="@+id/customer_name_label"
+            android:id="@+id/reservation_leader_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
@@ -40,13 +40,25 @@
             android:singleLine="true"/>
 
         <TextView
-            android:id="@+id/following_duration_label"
+            android:id="@+id/appointment_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Customer Since: Nov 06 2016"
+            android:textSize="14sp"
+            android:text="Appointment Date: --"
             android:textColor="@android:color/black"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/status_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="pending"
+        android:gravity="end"
+        android:textColor="@color/colorAccent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="4dp"/>
+
 
 </LinearLayout>

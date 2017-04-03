@@ -12,7 +12,7 @@ import com.example.appdaddy.bizmi.Fragments.BaseFragment;
 import com.example.appdaddy.bizmi.Fragments.ConversationsFragment;
 import com.example.appdaddy.bizmi.Fragments.CustomerProfileFragment;
 import com.example.appdaddy.bizmi.Fragments.ViewBusinessesFragment;
-import com.example.appdaddy.bizmi.Fragments.ViewReservationsFragment;
+import com.example.appdaddy.bizmi.Fragments.ViewReservationsBusinessFragment;
 import com.example.appdaddy.bizmi.POJO.UploadFileEvent;
 import com.example.appdaddy.bizmi.POJO.UploadProgressEvent;
 import com.example.appdaddy.bizmi.POJO.UserUpdateEvent;
@@ -123,7 +123,7 @@ public class CustomerMainActivity extends AppCompatActivity implements BaseFragm
             case INDEX_BUSINESSES:
                 return ViewBusinessesFragment.newInstance();
             case INDEX_RESERVATIONS:
-                return ViewReservationsFragment.newInstance();
+                return ViewReservationsBusinessFragment.newInstance();
             case INDEX_PROFILE:
                 return CustomerProfileFragment.newInstance();
 

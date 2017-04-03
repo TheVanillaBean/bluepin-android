@@ -1,14 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context="com.example.appdaddy.bizmi.Fragments.ViewCustomersFragment">
+    tools:context="com.example.appdaddy.bizmi.Fragments.ViewBusinessesFragment">
 
     <com.example.appdaddy.bizmi.widgets.CustomRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
     <TextView
         android:id="@+id/empty_list"
@@ -17,6 +17,6 @@
         android:layout_margin="32dp"
         android:textColor="@color/colorGreyDark"
         android:gravity="center"
-        android:text="No Customers"/>
+        android:text="No Reservations"/>
 
-</RelativeLayout>
+</FrameLayout>

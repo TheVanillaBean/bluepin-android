@@ -335,7 +335,6 @@ public class FBDataService {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                L.m("cancell followed user");
                 EventBus.getDefault().post(new RetrieveSubscriptionStatusEvent(false, "Error retrieving businesses... " + databaseError.getMessage()));
             }
         });
@@ -354,8 +353,15 @@ public class FBDataService {
 
     }
 
-    //End Subscription Status
+    public void removeReservationForUser(String reservationID, String businessID, String customerID){
 
+        reservationsRef().child(reservationID).removeValue();
+        userReservationsRef().child(businessID).child(reservationID).removeValue();
+        userReservationsRef().child(customerID).child(reservationID).removeValue();
+
+    }
+
+    //End Subscription Status
 
     public FBDataService(){
     }

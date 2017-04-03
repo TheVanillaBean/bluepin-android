@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Address;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +22,6 @@ import com.example.appdaddy.bizmi.R;
 import com.example.appdaddy.bizmi.controller.BusinessInfoDialog;
 import com.example.appdaddy.bizmi.model.User;
 import com.example.appdaddy.bizmi.util.Constants;
-import com.example.appdaddy.bizmi.util.L;
 import com.example.appdaddy.bizmi.util.Util;
 import com.example.appdaddy.bizmi.widgets.CustomRecyclerView;
 import com.firebase.geofire.GeoFire;
@@ -42,7 +39,6 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-import me.grantland.widget.AutofitHelper;
 
 public class ViewBusinessesFragment extends Fragment {
 
@@ -81,7 +77,7 @@ public class ViewBusinessesFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new FirebaseIndexRecyclerAdapter<User, BusinessHolder>(User.class, R.layout.row_business, BusinessHolder.class,
+        mAdapter = new FirebaseIndexRecyclerAdapter<User, BusinessHolder>(User.class, R.layout.row_business_reservation, BusinessHolder.class,
                 FBDataService.getInstance().businessUserRef(), FBDataService.getInstance().usersRef()) {
             @Override
             public void populateViewHolder(final BusinessHolder businessViewHolder, final User user, int position) {

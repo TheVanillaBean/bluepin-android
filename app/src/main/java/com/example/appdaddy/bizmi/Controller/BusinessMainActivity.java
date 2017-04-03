@@ -1,23 +1,28 @@
 package com.example.appdaddy.bizmi.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.example.appdaddy.bizmi.Fragments.BaseFragment;
 import com.example.appdaddy.bizmi.Fragments.BusinessProfileFragment;
 import com.example.appdaddy.bizmi.Fragments.ConversationsFragment;
 import com.example.appdaddy.bizmi.Fragments.ViewCustomersFragment;
-import com.example.appdaddy.bizmi.Fragments.ViewReservationsFragment;
+import com.example.appdaddy.bizmi.Fragments.ViewReservationsBusinessFragment;
 import com.example.appdaddy.bizmi.POJO.UploadFileEvent;
 import com.example.appdaddy.bizmi.POJO.UploadProgressEvent;
 import com.example.appdaddy.bizmi.POJO.UserUpdateEvent;
+import com.example.appdaddy.bizmi.PhoneVerificationActivity;
 import com.example.appdaddy.bizmi.R;
-import com.example.appdaddy.bizmi.util.Dialog;
+import com.example.appdaddy.bizmi.util.Constants;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -124,7 +129,7 @@ public class BusinessMainActivity extends AppCompatActivity implements BaseFragm
             case INDEX_CUSTOMERS:
                 return ViewCustomersFragment.newInstance();
             case INDEX_RESERVATIONS:
-                return ViewReservationsFragment.newInstance();
+                return ViewReservationsBusinessFragment.newInstance();
             case INDEX_PROFILE:
                 return BusinessProfileFragment.newInstance();
 
@@ -172,6 +177,28 @@ public class BusinessMainActivity extends AppCompatActivity implements BaseFragm
         void OnUploadProgressCallBack(UploadProgressEvent event);
         void OnUploadFileCallBack(UploadFileEvent event);
         void OnUserUpdateCallBack(UserUpdateEvent event);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.business_main_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_new_reservation:
+                Intent intent = new Intent(BusinessMainActivity.this, NewReservationActivity.class);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

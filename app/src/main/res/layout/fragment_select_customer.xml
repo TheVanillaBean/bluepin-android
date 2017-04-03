@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/header_bg"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_alignParentTop="true"/>
+
+        <View
+            android:id="@+id/toolbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:layout_below="@id/header_bg"
+            android:background="@drawable/shadow" />
+
+
+        <ImageButton
+            android:id="@+id/cancel_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/btn_cancel_selector"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp" />
+
+    </RelativeLayout>
+
+    <com.example.appdaddy.bizmi.widgets.CustomRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_layout"/>
+
+    <TextView
+        android:id="@+id/empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="32dp"
+        android:textColor="@color/colorGreyDark"
+        android:gravity="center"
+        android:text="No Customers"/>
+
+</RelativeLayout>

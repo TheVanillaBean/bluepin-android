@@ -20,6 +20,7 @@ public class Constants {
     public static final String EXTRA_PHONE_NUMBER = "phoneNumberExtra";
     public static final String EXTRA_USER_ID = "userIDExtra";
     public static final String EXTRA_USER_PARCEL = "userParcel";
+    public static final String EXTRA_RESERVATION_PARCEL = "reservationParcel";
     public static final String EXTRA_LOCATION_LAT = "locationLatExtra";
     public static final String EXTRA_LOCATION_LONG = "locationLongExtra";
     public static final String EXTRA_WEBSITE = "websiteExtra";

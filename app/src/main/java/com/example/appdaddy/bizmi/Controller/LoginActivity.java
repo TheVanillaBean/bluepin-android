@@ -78,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showSignUpAlertDialog(){
-        Intent intent = null;
         new MaterialDialog.Builder(this)
                 .title("New User")
                 .content("Are you a customer or a business?")

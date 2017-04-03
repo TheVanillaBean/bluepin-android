@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_new_reservation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.appdaddy.bizmi.controller.NewReservationActivity"
+    android:background="@android:color/white">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/appointment_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/colorAccent"
+        android:text="New Appointment"
+        android:gravity="center"
+        android:layout_margin="8dp"
+        android:layout_below="@id/toolbar"/>
+
+    <TextView
+        android:id="@+id/select_customer_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:text="Select Customer"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:layout_below="@id/appointment_label"/>
+
+    <TextView
+        android:id="@+id/select_time_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:text="Select Date and Time"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:layout_below="@id/select_customer_btn"/>
+
+    <Button
+        android:id="@+id/create_appointment_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="Create Appointment"
+        android:textAllCaps="false"
+        android:layout_below="@id/select_time_btn"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"/>
+
+</RelativeLayout>
