@@ -32,8 +32,6 @@ import com.example.appdaddy.bizmi.controller.CustomerMainActivity;
 import com.example.appdaddy.bizmi.controller.CustomerSignUpActivity;
 import com.example.appdaddy.bizmi.controller.LoginActivity;
 import com.example.appdaddy.bizmi.controller.NewReservationActivity;
-import com.example.appdaddy.bizmi.reservationAdapter.ReservationFirebaseIndexRecyclerAdapter;
-import com.example.appdaddy.bizmi.reservationAdapter.ReservationFirebaseRecyclerAdapter;
 import com.example.appdaddy.bizmi.model.Reservation;
 import com.example.appdaddy.bizmi.model.User;
 import com.example.appdaddy.bizmi.util.Constants;
@@ -41,6 +39,7 @@ import com.example.appdaddy.bizmi.util.Dialog;
 import com.example.appdaddy.bizmi.util.L;
 import com.example.appdaddy.bizmi.util.Util;
 import com.example.appdaddy.bizmi.widgets.CustomRecyclerView;
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -67,7 +66,7 @@ public class ViewReservationsBusinessFragment extends Fragment {
 
     private User mCurrentUser;
 
-    private ReservationFirebaseRecyclerAdapter mAdapter;
+    private FirebaseIndexRecyclerAdapter mAdapter;
 
     public ViewReservationsBusinessFragment() {
     }
@@ -103,16 +102,14 @@ public class ViewReservationsBusinessFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        L.m("onStop");
+    public void onPause() {
         EventBus.getDefault().unregister(this);
-        super.onStop();
+        super.onPause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        L.m("Destroy Call");
         mAdapter.cleanup();
     }
 
@@ -121,21 +118,21 @@ public class ViewReservationsBusinessFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new ReservationFirebaseIndexRecyclerAdapter<Reservation, ReservationHolder>(Reservation.class, R.layout.row_customer_reservation, ViewReservationsBusinessFragment.ReservationHolder.class,
-                FBDataService.getInstance().userReservationsRef().child(mCurrentUser.getUUID()).orderByValue().limitToLast(25), FBDataService.getInstance().reservationsRef(), FBDataService.getInstance().usersRef()) {
+        mAdapter = new FirebaseIndexRecyclerAdapter<Reservation, ReservationHolder>(Reservation.class, R.layout.row_customer_reservation, ViewReservationsBusinessFragment.ReservationHolder.class,
+                FBDataService.getInstance().userReservationsRef().child(mCurrentUser.getUUID()).orderByValue().limitToLast(25), FBDataService.getInstance().reservationsRef()) {
             @Override
-            public void populateViewHolder(final ViewReservationsBusinessFragment.ReservationHolder customerViewHolder, final Reservation reservation, int position, final User user) {
+            public void populateViewHolder(final ViewReservationsBusinessFragment.ReservationHolder customerViewHolder, final Reservation reservation, int position) {
 
-                customerViewHolder.setName(user.getFullName());
+                customerViewHolder.setName(reservation.getLeaderName());
                 customerViewHolder.setAppointmentDate(reservation.getScheduledTime());
                 customerViewHolder.setStatus(getActivity(), reservation.getStatus());
-                customerViewHolder.updateProfilePicture(getActivity(), Util.getImagePathPNG(user.getUUID()));
+                customerViewHolder.updateProfilePicture(getActivity(), Util.getImagePathPNG(reservation.getLeaderID()));
 
                 customerViewHolder.getView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(reservation.getStatus().equals(Constants.PENDING_STATUS) || reservation.getStatus().equals(Constants.ACTIVE_STATUS)){
-                            showChangeReservationAlertDialog(reservation, user);
+                            showChangeReservationAlertDialog(reservation, reservation.getLeaderID(), reservation.getLeaderName());
                         }
                     }
                 });
@@ -146,10 +143,10 @@ public class ViewReservationsBusinessFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void showChangeReservationAlertDialog(final Reservation reservation, final User user){
+    private void showChangeReservationAlertDialog(final Reservation reservation, final String userID, final String leaderName){
         new MaterialDialog.Builder(getActivity())
                 .title("Change Reservation")
-                .content("Do you want to change this reservation for " + user.getFullName())
+                .content("Do you want to change this reservation for " + leaderName)
                 .positiveText("Yes, Change")
                 .negativeText("Yes, Delete")
                 .neutralText("No")
@@ -157,7 +154,7 @@ public class ViewReservationsBusinessFragment extends Fragment {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        navigateToReservationActivity(reservation, user);
+                        navigateToReservationActivity(reservation, userID);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -187,12 +184,11 @@ public class ViewReservationsBusinessFragment extends Fragment {
                 .show();
     }
 
-    private void navigateToReservationActivity(Reservation reservation, User user){
+    private void navigateToReservationActivity(Reservation reservation, String userID){
         Bundle bundle = new Bundle();
         Parcelable wrapped = Parcels.wrap(reservation);
-        Parcelable userWrap = Parcels.wrap(user);
         bundle.putParcelable(Constants.EXTRA_RESERVATION_PARCEL, wrapped);
-        bundle.putParcelable(Constants.EXTRA_USER_PARCEL, userWrap);
+        bundle.putString(Constants.EXTRA_USER_ID, userID);
 
         Intent intent = new Intent(getActivity(), NewReservationActivity.class);
         intent.putExtras(bundle);

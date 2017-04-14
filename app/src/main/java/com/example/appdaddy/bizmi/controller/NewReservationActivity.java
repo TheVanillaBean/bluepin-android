@@ -75,7 +75,7 @@ public class NewReservationActivity extends AppCompatActivity implements SelectC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reservation);
         ButterKnife.bind(this);
-
+ 
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -86,18 +86,37 @@ public class NewReservationActivity extends AppCompatActivity implements SelectC
         mCalendar = Calendar.getInstance();
         progressDialog = Dialog.showProgressIndeterminateDialog(this, "Loading...", "Creating Reservation...", false);
 
-        if (Parcels.unwrap(getIntent().getExtras().getParcelable(Constants.EXTRA_RESERVATION_PARCEL)) != null){
+        if (getIntent().getExtras() != null){
             mReservation = Parcels.unwrap(getIntent().getExtras().getParcelable(Constants.EXTRA_RESERVATION_PARCEL));
-            mUser = Parcels.unwrap(getIntent().getExtras().getParcelable(Constants.EXTRA_USER_PARCEL));
-            mSelectCustomerBtn.setText(mUser.getFullName());
+            User.castUser(getIntent().getExtras().getString(Constants.EXTRA_USER_ID));
             mCalendar.setTimeInMillis(mReservation.getAppointmentTimeInterval().longValue());
             mSelectCustomerBtn.setEnabled(false);
+            mCreateAppointmentBtn.setEnabled(false);
+            mCreateAppointmentBtn.setText("Change Reservation");
         }
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUserCastCallBack(UserCastEvent event) {
+        if (event.getError() == null) {
+            mUser = event.getUser();
+            mSelectCustomerBtn.setText(mUser.getFullName());
+            mCreateAppointmentBtn.setEnabled(true);
+        } else {
+            Dialog.showDialog(this, "Authentication Error", event.getError(), "Okay");
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
     @Override
     public void onStop() {
+        EventBus.getDefault().unregister(this);
         mReservation = null;
         mUser = null;
         super.onStop();
@@ -146,7 +165,8 @@ public class NewReservationActivity extends AppCompatActivity implements SelectC
                         mScheduledTime,
                         mUser.getUUID(),
                         currentUserID,
-                        (double) mCalendar.getTimeInMillis());
+                        (double) mCalendar.getTimeInMillis(),
+                        mUser.getFullName());
 
                 progressDialog.show();
                 FBDataService.getInstance().reservationsRef().child(key).setValue(mReservation).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -82,6 +82,7 @@ public class Constants {
     public static final String RESERVATION_TIMESTAMP = "timestamp";
     public static final String RESERVATION_SCHEDULED_TIME = "scheduledTime";
     public static final String RESERVATION_PARTY_LEADER_ID = "leaderID";
+    public static final String RESERVATION_PARTY_LEADER_NAME = "leaderName";
     public static final String RESERVATION_BUSINESS_ID = "businessID";
     public static final String RESERVATION_APPOINTMENT_TIME_INTERVAL = "appointmentTimeInterval";
 

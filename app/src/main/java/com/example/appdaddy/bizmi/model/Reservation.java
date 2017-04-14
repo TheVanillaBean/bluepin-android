@@ -30,6 +30,7 @@ public class Reservation {
     String scheduledTime;
     String leaderID;
     String businessID;
+    String leaderName;
 
     Double appointmentTimeInterval;
 
@@ -73,6 +74,12 @@ public class Reservation {
         this.businessID = businessID;
     }
 
+    public String getLeaderName() { return (leaderName == null) ? "" : leaderName;  }
+
+    public void setLeaderName(String leaderName) {
+        this.leaderName = leaderName;
+    }
+
     public Double getAppointmentTimeInterval() {
         return (appointmentTimeInterval == null) ? 0.0 : appointmentTimeInterval;
     }
@@ -84,13 +91,14 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String uuid, String status, String scheduledTime, String leaderID, String businessID, Double appointmentTimeInterval) {
+    public Reservation(String uuid, String status, String scheduledTime, String leaderID, String businessID, Double appointmentTimeInterval, String leaderName) {
         this.uuid = uuid;
         this.status = status;
         this.scheduledTime = scheduledTime;
         this.leaderID = leaderID;
         this.businessID = businessID;
         this.appointmentTimeInterval = appointmentTimeInterval;
+        this.leaderName = leaderName;
     }
 
     @Exclude
@@ -103,7 +111,9 @@ public class Reservation {
         result.put(Constants.RESERVATION_PARTY_LEADER_ID, leaderID);
         result.put(Constants.RESERVATION_BUSINESS_ID, businessID);
         result.put(Constants.RESERVATION_APPOINTMENT_TIME_INTERVAL, appointmentTimeInterval);
+        result.put(Constants.RESERVATION_PARTY_LEADER_NAME, leaderName);
         return result;
+
     }
 
     public static void castReservation(String uuid){
