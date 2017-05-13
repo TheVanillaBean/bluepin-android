@@ -4,7 +4,7 @@
     android:id="@+id/activity_new_reservation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.appdaddy.bizmi.controller.NewReservationActivity"
+    tools:context="com.bluepinapp.bluepin.controller.NewReservationActivity"
     android:background="@android:color/white">
 
     <include

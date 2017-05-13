@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_message_thread"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bluepinapp.bluepin.controller.MessageThreadActivity"
+    android:background="@android:color/white">
+
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/messagesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/input"
+        app:dateHeaderFormat="dd MMMM yyyy"
+        app:incomingDefaultBubbleColor="@color/colorBubbleIncoming"
+        app:incomingDefaultBubblePressedColor="@color/colorGreyLight"
+        app:incomingDefaultBubbleSelectedColor="@color/colorGreyLight"
+        app:incomingDefaultImageOverlayPressedColor="@color/colorGreyLight"
+        app:incomingDefaultImageOverlaySelectedColor="@color/colorGreyLight"
+        app:incomingTextColor="@color/black"
+        app:incomingTextLinkColor="@color/black"
+        app:incomingTextSize="18sp"
+        app:incomingTextStyle="normal"
+        app:outcomingDefaultBubbleColor="@color/colorBubbleOutgoing"
+        app:outcomingDefaultBubblePressedColor="@color/colorPrimary"
+        app:outcomingDefaultBubbleSelectedColor="@color/colorPrimary"
+        app:outcomingDefaultImageOverlayPressedColor="@color/colorPrimary"
+        app:outcomingDefaultImageOverlaySelectedColor="@color/colorPrimary"
+        app:outcomingTextColor="@color/white"
+        app:outcomingTextLinkColor="@color/white"
+        app:outcomingTextSize="18sp"
+        app:textAutoLink="all"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/input"
+        android:background="@color/colorDivider"/>
+
+    <com.stfalcon.chatkit.messages.MessageInput
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:attachmentButtonDefaultIconColor="@color/colorPrimaryDark"
+        app:attachmentButtonDefaultIconPressedColor="@color/colorPrimary"
+        app:inputButtonDefaultBgColor="@color/colorPrimaryDark"
+        app:inputButtonDefaultBgPressedColor="@color/colorPrimary"
+        app:inputHint="Type a Message..."
+        app:showAttachmentButton="false"/>
+
+</RelativeLayout>

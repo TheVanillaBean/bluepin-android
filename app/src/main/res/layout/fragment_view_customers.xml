@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.example.appdaddy.bizmi.Fragments.ViewCustomersFragment">
+    tools:context="com.bluepinapp.bluepin.Fragments.ViewCustomersFragment">
 
-    <com.example.appdaddy.bizmi.widgets.CustomRecyclerView
+    <com.bluepinapp.bluepin.widgets.CustomRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

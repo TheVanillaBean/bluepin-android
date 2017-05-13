@@ -35,7 +35,7 @@
 
     </RelativeLayout>
 
-    <com.example.appdaddy.bizmi.widgets.CustomRecyclerView
+    <com.bluepinapp.bluepin.widgets.CustomRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

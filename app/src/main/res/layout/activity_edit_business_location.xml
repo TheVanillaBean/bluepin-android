@@ -4,7 +4,7 @@
     android:id="@+id/activity_edit_location"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.appdaddy.bizmi.controller.EditLocationActivity">
+    tools:context="com.bluepinapp.bluepin.controller.EditLocationActivity">
 
     <fragment
         android:id="@+id/map_view"

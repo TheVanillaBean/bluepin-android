@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
-    tools:context="com.example.appdaddy.bizmi.Fragments.CustomerProfileFragment">
+    tools:context="com.bluepinapp.bluepin.Fragments.CustomerProfileFragment">
 
     <ScrollView
         android:id="@+id/scroll_view"

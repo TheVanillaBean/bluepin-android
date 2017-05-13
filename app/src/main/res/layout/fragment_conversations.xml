@@ -1,13 +1,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.example.appdaddy.bizmi.Fragments.ConversationsFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.bluepinapp.bluepin.Fragments.ConversationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.stfalcon.chatkit.dialogs.DialogsList
+        android:id="@+id/dialogsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="ll"/>
+        app:dialogDividerLeftPadding="0dp"
+        app:dialogMessageTextSize="17sp"
+        app:dialogTitleTextStyle="bold"
+        app:dialogUnreadBubbleBackgroundColor="@color/colorPrimaryDark"
+        app:dialogUnreadItemBackground="@android:color/white"
+        app:dialogUnreadTitleTextStyle="bold"/>
+
 
 </FrameLayout>

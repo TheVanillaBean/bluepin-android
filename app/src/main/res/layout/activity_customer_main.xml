@@ -6,7 +6,7 @@
     android:id="@+id/activity_customer_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.appdaddy.bizmi.controller.CustomerMainActivity"
+    tools:context="com.bluepinapp.bluepin.controller.CustomerMainActivity"
     android:background="@android:color/white">
 
     <include

@@ -4,7 +4,7 @@
     android:id="@+id/activity_view_business_directions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.appdaddy.bizmi.ViewBusinessDirectionsFragment">
+    tools:context="com.bluepinapp.bluepin.ViewBusinessDirectionsFragment">
 
     <fragment
         android:id="@+id/map_view"
